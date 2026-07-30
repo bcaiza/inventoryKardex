@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://AlertasView.title">
+    <data>
+        <collection id="alertasDc" class="com.company.inventory.entity.Product">
+            <fetchPlan extends="_base">
+                <property name="category" fetchPlan="_base"/>
+                <property name="medida" fetchPlan="_base"/>
+            </fetchPlan>
+        </collection>
+    </data>
+    <layout>
+        <hbox id="badgesBox" width="100%" padding="false" spacing="true" margin="false">
+            <span id="sinStockBadge"/>
+            <span id="bajoMinimoBadge"/>
+            <span id="proximoBadge"/>
+        </hbox>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="refreshButton" text="msg://refreshButton" icon="REFRESH"/>
+            <button id="excelExportBtn" action="alertasGrid.excelExport"/>
+        </hbox>
+        <dataGrid id="alertasGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="alertasDc">
+            <actions>
+                <action id="excelExport" type="grdexp_excelExport"/>
+            </actions>
+            <columns resizable="true">
+                <column property="code" width="130px"/>
+                <column property="name" width="300px"/>
+                <column property="category" width="160px"/>
+                <column property="stock" width="110px"/>
+                <column property="minStock" width="130px"/>
+            </columns>
+        </dataGrid>
+    </layout>
+</view>

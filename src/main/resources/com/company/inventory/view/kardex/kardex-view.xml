@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://KardexView.title">
+    <data>
+        <collection id="productsDc" class="com.company.inventory.entity.Product">
+            <fetchPlan extends="_base"/>
+            <loader id="productsDl">
+                <query><![CDATA[select e from Product e where e.active = true order by e.code]]></query>
+            </loader>
+        </collection>
+        <collection id="employeesDc" class="com.company.inventory.entity.Employee">
+            <fetchPlan extends="_base"/>
+            <loader id="employeesDl">
+                <query><![CDATA[select e from Employee e order by e.name]]></query>
+            </loader>
+        </collection>
+        <collection id="categoriesDc" class="com.company.inventory.entity.Category">
+            <fetchPlan extends="_base"/>
+            <loader id="categoriesDl">
+                <query><![CDATA[select e from Category e where e.active = true order by e.name]]></query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <hbox alignItems="END" padding="false">
+            <entityComboBox id="productPicker"
+                            itemsContainer="productsDc"
+                            label="msg://productPicker.label"
+                            metaClass="Product"
+                            width="300px">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <entityComboBox id="categoryPicker"
+                            itemsContainer="categoriesDc"
+                            label="msg://categoryPicker.label"
+                            metaClass="Category"
+                            width="220px">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <datePicker id="fechaInicial"
+                        label="msg://fechaInicial.label"
+                        datatype="localDate"
+                        required="true"
+                        requiredMessage="msg://fechaInicial.required"
+                        width="170px"/>
+            <datePicker id="fechaFinal"
+                        label="msg://fechaFinal.label"
+                        datatype="localDate"
+                        required="true"
+                        requiredMessage="msg://fechaFinal.required"
+                        width="170px"/>
+            <entityComboBox id="personaPicker"
+                            itemsContainer="employeesDc"
+                            label="msg://personaPicker.label"
+                            metaClass="Employee"
+                            width="250px">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <button id="exportExcelBtn"
+                    text="msg://exportExcelBtn.text"
+                    themeNames="success"
+                    icon="DOWNLOAD"/>
+        </hbox>
+        <span id="stockSummary" text=""/>
+        <vbox id="gridContainer" width="100%" padding="false"/>
+    </layout>
+</view>

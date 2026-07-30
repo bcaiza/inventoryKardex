@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://MedidaListView.title"
+      focusComponent="medidasDataGrid">
+    <data>
+        <collection id="medidasDc" class="com.company.inventory.entity.Medida">
+            <fetchPlan extends="_base"/>
+            <loader id="medidasDl" readOnly="true">
+                <query><![CDATA[select e from Medida e order by e.name]]></query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <layout>
+        <genericFilter id="genericFilter" dataLoader="medidasDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="medidasDataGrid.createAction"/>
+            <button id="editButton" action="medidasDataGrid.editAction"/>
+            <button id="removeButton" action="medidasDataGrid.removeAction"/>
+            <button id="exportButton" text="msg://exportExcel" icon="DOWNLOAD"/>
+            <simplePagination id="pagination" dataLoader="medidasDl"/>
+        </hbox>
+        <dataGrid id="medidasDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="medidasDc">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name" width="200px"/>
+                <column property="description"/>
+                <column property="active" width="90px"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

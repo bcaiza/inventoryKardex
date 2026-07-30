@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://ProductListView.title"
+      focusComponent="productsDataGrid">
+    <data>
+        <collection id="productsDc" class="com.company.inventory.entity.Product">
+            <fetchPlan extends="_base">
+                <property name="category" fetchPlan="_base"/>
+                <property name="medida" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="productsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Product e order by e.code]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <layout>
+        <span id="alertBanner"/>
+        <genericFilter id="genericFilter" dataLoader="productsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="productsDataGrid.createAction"/>
+            <button id="editButton" action="productsDataGrid.editAction"/>
+            <button id="deleteProductButton" text="msg://deleteProduct" icon="TRASH" themeNames="error"/>
+            <button id="bulkImportButton" text="msg://bulkImport" icon="UPLOAD"/>
+            <button id="bulkStockButton" text="msg://bulkStock" icon="CHART_LINE"/>
+            <button id="bulkBodegaButton" text="msg://bulkBodega" icon="DATABASE"/>
+            <button id="reconcileStockButton" text="msg://reconcileStock" icon="WRENCH" themeNames="warning"/>
+            <button id="excelExportBtn" action="productsDataGrid.excelExport"/>
+            <simplePagination id="pagination" dataLoader="productsDl"/>
+        </hbox>
+        <dataGrid id="productsDataGrid"
+                  width="100%"
+                  columnReorderingAllowed="true"
+                  minHeight="20em"
+                  selectionMode="MULTI"
+                  dataContainer="productsDc">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+            </actions>
+            <columns resizable="true">
+                <column property="code" width="120px"/>
+                <column property="name" width="300px"/>
+                <column property="category" width="160px"/>
+                <column property="stock" width="100px"/>
+                <column property="minStock" width="120px"/>
+                <column property="active" width="90px"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

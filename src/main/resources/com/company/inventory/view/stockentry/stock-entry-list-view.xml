@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://StockEntryListView.title"
+      focusComponent="stockEntriesDataGrid">
+    <data>
+        <collection id="stockEntriesDc" class="com.company.inventory.entity.StockEntry">
+            <fetchPlan extends="_base">
+                <property name="product" fetchPlan="_base">
+                    <property name="medida" fetchPlan="_base"/>
+                </property>
+            </fetchPlan>
+            <loader id="stockEntriesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from StockEntry e order by e.entryDate desc, e.createdDate desc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <layout>
+        <genericFilter id="genericFilter" dataLoader="stockEntriesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="stockEntriesDataGrid.createAction"/>
+            <button id="bulkImportButton" text="msg://bulkImport"/>
+            <button id="anularButton" text="msg://anularButton" themeNames="error"/>
+            <button id="excelExportBtn" action="stockEntriesDataGrid.excelExport"/>
+            <simplePagination id="pagination" dataLoader="stockEntriesDl"/>
+        </hbox>
+        <dataGrid id="stockEntriesDataGrid"
+                  width="100%"
+                  columnReorderingAllowed="true"
+                  minHeight="20em"
+                  selectionMode="MULTI"
+                  dataContainer="stockEntriesDc">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+            </actions>
+            <columns resizable="true">
+                <column property="cancelled" width="110px"/>
+                <column property="entryDate" width="130px"/>
+                <column property="voucher" width="140px"/>
+                <column property="product.name" width="280px"/>
+                <column property="product.category" width="280px"/>
+                <column property="product.medida" width="140px"/>
+                <column property="quantity" width="110px"/>
+                <column property="createdBy" width="150px"/>
+                <column property="createdDate" width="170px"/>
+                <column property="lastModifiedBy" width="150px"/>
+                <column property="lastModifiedDate" width="170px"/>
+            </columns>
+        </dataGrid>
+    </layout>
+</view>

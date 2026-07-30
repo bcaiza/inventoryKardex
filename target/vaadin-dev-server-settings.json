@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "C:/Users/Boris/IdeaProjects/Inventory/./src/main/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "C:/Users/Boris/IdeaProjects/Inventory/./src/main/frontend/generated/jar-resources",
+  "staticOutput": "C:/Users/Boris/IdeaProjects/Inventory/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "C:\\Users\\Boris\\IdeaProjects\\Inventory\\target\\classes\\META-INF\\VAADIN\\config",
+  "frontendBundleOutput": "C:\\Users\\Boris\\IdeaProjects\\Inventory\\target\\classes\\META-INF\\VAADIN\\webapp",
+  "devBundleOutput": "C:/Users/Boris/IdeaProjects/Inventory/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "C:/Users/Boris/IdeaProjects/Inventory/target/dev-bundle/config",
+  "jarResourcesFolder": "C:/Users/Boris/IdeaProjects/Inventory/./src/main/frontend/generated/jar-resources",
+  "themeName": "Inventory",
+  "clientServiceWorkerSource": "C:\\Users\\Boris\\IdeaProjects\\Inventory\\target\\sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}

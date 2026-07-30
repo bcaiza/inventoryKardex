@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://StockEntryDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="stockEntryDc" class="com.company.inventory.entity.StockEntry">
+            <fetchPlan extends="_base">
+                <property name="product" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+        <collection id="productsDc" class="com.company.inventory.entity.Product">
+            <fetchPlan extends="_base"/>
+            <loader id="productsDl">
+                <query><![CDATA[select e from Product e order by e.code]]></query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <vbox id="stockInfoBox" padding="false" spacing="false">
+            <span id="currentStockSpan" text="" themeNames="badge contrast"/>
+        </vbox>
+        <formLayout id="form" dataContainer="stockEntryDc" labelsPosition="TOP">
+            <datePicker id="entryDateField" property="entryDate" required="true"
+                        label="msg://com.company.inventory.entity/StockEntry.entryDate"/>
+            <textField id="voucherField" property="voucher"
+                       label="msg://com.company.inventory.entity/StockEntry.voucher"/>
+            <entityComboBox id="productField" property="product" required="true" colspan="2"
+                            label="msg://com.company.inventory.entity/StockEntry.product"
+                            itemsContainer="productsDc" width="100%"/>
+            <integerField id="quantityField" property="quantity" required="true" min="1"
+                          label="msg://com.company.inventory.entity/StockEntry.quantity"/>
+            <textArea id="descriptionField" property="description" colspan="2"
+                      label="msg://com.company.inventory.entity/StockEntry.description" width="100%"/>
+            <textField id="note1Field" property="note1"
+                       label="msg://com.company.inventory.entity/StockEntry.note1"/>
+            <textField id="note2Field" property="note2"
+                       label="msg://com.company.inventory.entity/StockEntry.note2"/>
+            <textArea id="reasonField" property="reason" colspan="2"
+                      label="msg://com.company.inventory.entity/StockEntry.reason" width="100%"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

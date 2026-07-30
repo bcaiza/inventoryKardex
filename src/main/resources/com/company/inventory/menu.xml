@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="inventory" title="msg://com.company.inventory/menu.inventory.title" opened="true">
+        <item view="Category.list" title="msg://com.company.inventory.view.category/CategoryListView.title"/>
+        <item view="Product.list" title="msg://com.company.inventory.view.product/ProductListView.title"/>
+        <item view="Medida.list" title="msg://com.company.inventory.view.product/Medidas.title"/>
+
+        <item view="Employee.list" title="msg://com.company.inventory.view.employee/EmployeeListView.title"/>
+        <item view="StockEntry.list" title="msg://com.company.inventory.view.stockentry/StockEntryListView.title"/>
+        <item view="StockExit.list" title="msg://com.company.inventory.view.stockexit/StockExitListView.title"/>
+        <item view="Kardex.view" title="msg://com.company.inventory.view.kardex/KardexView.title"/>
+        <item view="Alertas.view" title="msg://com.company.inventory.view.alertas/AlertasView.title"/>
+    </menu>
+
+    <menu id="application" title="msg://com.company.inventory/menu.application.title">
+        <item view="User.list" title="msg://com.company.inventory.view.user/UserListView.title"/>
+    </menu>
+
+</menu-config>

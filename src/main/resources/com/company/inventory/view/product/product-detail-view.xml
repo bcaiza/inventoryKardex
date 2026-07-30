@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://ProductDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="productDc" class="com.company.inventory.entity.Product">
+            <fetchPlan extends="_base">
+                <property name="category" fetchPlan="_base"/>
+                <property name="medida" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+        <collection id="categoriesDc" class="com.company.inventory.entity.Category">
+            <fetchPlan extends="_base"/>
+            <loader id="categoriesDl">
+                <query><![CDATA[select e from Category e where e.active is null or e.active = true order by e.name]]></query>
+            </loader>
+        </collection>
+        <collection id="medidasDc" class="com.company.inventory.entity.Medida">
+            <fetchPlan extends="_base"/>
+            <loader id="medidasDl">
+                <query><![CDATA[select e from Medida e where e.active is null or e.active = true order by e.name]]></query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <formLayout id="form" dataContainer="productDc" labelsPosition="TOP">
+            <textField id="codeField" property="code" required="true" label="msg://com.company.inventory.entity/Product.code" width="20em"/>
+            <textField id="nameField" property="name" required="true" label="msg://com.company.inventory.entity/Product.name" width="30em"/>
+            <textField id="partNumberField" property="partNumber" label="msg://com.company.inventory.entity/Product.partNumber" width="20em"/>
+            <entityComboBox id="categoryField" property="category"
+                            label="msg://com.company.inventory.entity/Product.category"
+                            itemsContainer="categoriesDc"
+                            width="20em"/>
+            <entityComboBox id="medidaField" property="medida"
+                            label="msg://com.company.inventory.entity/Product.medida"
+                            itemsContainer="medidasDc"
+                            required="true"
+                            width="20em"/>
+            <integerField id="stockField" property="stock" readOnly="true" label="msg://com.company.inventory.entity/Product.stock" width="12em"/>
+            <integerField id="minStockField" property="minStock" label="msg://com.company.inventory.entity/Product.minStock" width="12em" min="0"/>
+            <integerField id="alertMarginField" property="alertMargin" label="msg://com.company.inventory.entity/Product.alertMargin" width="12em" min="0" helperText="Unidades sobre el mínimo para activar alerta"/>
+            <checkbox id="activeField" property="active" required="false" label="msg://com.company.inventory.entity/Product.active"/>
+            <textArea id="descriptionField" property="description" colspan="2"
+                      label="msg://com.company.inventory.entity/Product.description" width="100%"/>
+            <textField id="note1Field" property="note1" label="msg://com.company.inventory.entity/Product.note1" width="100%"/>
+            <textField id="note2Field" property="note2" label="msg://com.company.inventory.entity/Product.note2" width="100%"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
